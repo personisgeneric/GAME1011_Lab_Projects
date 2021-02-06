@@ -30,10 +30,17 @@ class Human : public Player
 private:
 	std::string m_uniqueTrait;
 public:
-	Human();
-	Human(std::string n);
+	Human()
+	{
+		m_health = 150;
+	}
+	Human(std::string n)
+	{
+		m_name = n;
+	}
 	~Human();
 	virtual void DisplayInfo() override;
+	void setTrait();
 
 };
 
@@ -43,8 +50,14 @@ private:
 	std::string m_uniqueTrait;
 public:
 	virtual void DisplayInfo() override;
-	Orc();
-	Orc(std::string n);
+	Orc()
+	{
+		m_health = 200;
+	}
+	Orc(std::string n)
+	{
+		m_name = n;
+	}
 	~Orc();
 };
 
@@ -54,8 +67,14 @@ private:
 	std::string m_uniqueTrait;
 public:
 	virtual void DisplayInfo() override;
-	Elf();
-	Elf(std::string n);
+	Elf()
+	{
+		m_health = 125;
+	}
+	Elf(std::string n)
+	{
+		m_name = n;
+	}
 	~Elf();
 };
 

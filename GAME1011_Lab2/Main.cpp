@@ -5,18 +5,23 @@
 
 void createHuman()
 {
+	
 	std::string tempName;
 	std::cout << "Please enter a name for your human character.\n";
 	std::cin >> tempName;
+	
 }
+
 void createOrc()
 {
 
 }
+
 void createElf()
 {
 
 }
+
 void PlayerCreate()
 {
 	int player = 0;
@@ -66,6 +71,7 @@ int main()
 		case 1:
 		{
 			PlayerCreate();
+			break;
 		}
 		case 2:
 		{
