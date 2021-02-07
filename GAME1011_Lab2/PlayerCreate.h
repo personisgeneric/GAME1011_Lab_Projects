@@ -32,16 +32,22 @@ private:
 public:
 	Human()
 	{
-		m_health = 150;
+		m_name = nullptr;
+		m_health = 0;
+		
 	}
 	Human(std::string n)
 	{
 		m_name = n;
+		m_health = 150;
 	}
 	~Human();
 	virtual void DisplayInfo() override;
-	void setTrait();
 
+	//Setter
+	void setTrait();
+	//Getter
+	std::string getTrait() { return m_uniqueTrait; }
 };
 
 class Orc : public Player
@@ -52,13 +58,20 @@ public:
 	virtual void DisplayInfo() override;
 	Orc()
 	{
-		m_health = 200;
+		m_name = nullptr;
+		m_health = 0;
+		
 	}
 	Orc(std::string n)
 	{
 		m_name = n;
+		m_health = 200;
 	}
 	~Orc();
+	//Setter
+	void setTrait();
+	//Getter
+	std::string getTrait() { return m_uniqueTrait; }
 };
 
 class Elf : public Player
@@ -69,13 +82,20 @@ public:
 	virtual void DisplayInfo() override;
 	Elf()
 	{
-		m_health = 125;
+		m_name = nullptr;
+		m_health = 0;
+		
 	}
 	Elf(std::string n)
 	{
 		m_name = n;
+		m_health = 125;
 	}
 	~Elf();
+	//Setter
+	void setTrait();
+	//Getter
+	std::string getTrait() { return m_uniqueTrait; }
 };
 
 

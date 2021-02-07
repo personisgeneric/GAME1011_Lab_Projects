@@ -2,6 +2,15 @@
 #include <string>
 #include "PlayerCreate.h"
 #include "Weapon.h"
+Player* savedCharacters[];
+void initializeCharacterSaves()
+{
+	for(unsigned int i =0; i <10; i++)
+	{
+		savedCharacters[i] = new Human();
+	}
+	
+}
 
 void createHuman()
 {
@@ -9,23 +18,49 @@ void createHuman()
 	std::string tempName;
 	std::cout << "Please enter a name for your human character.\n";
 	std::cin >> tempName;
+	for(unsigned int i = 0; i < sizeof(savedCharacters[INT_MAX]); i++)
+	{
+		if(savedCharacters[i]->getHealth() ==0)
+		{
+			savedCharacters[i] = new Human(tempName);
+			
+		}
+		else
+		{
+			for (unsigned int j = i; j < (i +10); j++)
+			{
+				savedCharacters[j] = new Human();
+			}
+			for (unsigned int k = 0; k < sizeof(savedCharacters[INT_MAX]); k++)
+			{
+				savedCharacters[k] = new Human(tempName);
+			}
+			
+		}
+	}
 	
 }
 
 void createOrc()
 {
-
+	std::string tempName;
+	std::cout << "Please enter a name for your human character.\n";
+	std::cin >> tempName;
 }
 
 void createElf()
 {
-
+	std::string tempName;
+	std::cout << "Please enter a name for your human character.\n";
+	std::cin >> tempName;
 }
 
 void PlayerCreate()
 {
 	int player = 0;
+	initializeCharacterSaves();
 	do {
+		//if()
 		std::cout << "Please choose what type of character you want to make.\n";
 		std::cin >> player;
 		switch (player)
