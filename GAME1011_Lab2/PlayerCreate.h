@@ -9,7 +9,7 @@ class Player
 {
 public:
 	std::string m_name;
-	int m_health;
+	int m_health = 0;
 	Weapon* m_weapon;
 
 	// Pure Virtual function
@@ -37,10 +37,10 @@ public:
 		m_health = 0;
 		
 	}
-	Human(std::string n)
+	Human(std::string n, int h)
 	{
 		m_name = n;
-		m_health = 150;
+		m_health = h;
 	}
 	~Human();
 	virtual void DisplayInfo() override;
@@ -63,10 +63,10 @@ public:
 		m_health = 0;
 		
 	}
-	Orc(std::string n)
+	Orc(std::string n, int h)
 	{
 		m_name = n;
-		m_health = 200;
+		m_health = h;
 	}
 	~Orc();
 	//Setter
@@ -87,10 +87,10 @@ public:
 		m_health = 0;
 		
 	}
-	Elf(std::string n)
+	Elf(std::string n, int h)
 	{
 		m_name = n;
-		m_health = 125;
+		m_health = h;
 	}
 	~Elf();
 	//Setter
