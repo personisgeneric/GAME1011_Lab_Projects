@@ -5,7 +5,7 @@
 
 
 
-void Weapon::setAbility()
+void Weapon::setAbilityDagger()
 {
 	int selectAbility = 0;
 	if (m_name == "Dagger")
@@ -38,7 +38,11 @@ void Weapon::setAbility()
 			}
 		}
 	}
-	if(m_name == "Sword")
+}
+void Weapon::setAbilitySword()
+{
+	int selectAbility = 0;
+	if (m_name == "Sword")
 	{
 		std::cout << "Please choose from the following abilities: \n";
 		std::cout << "1. Brute Force: If you attack a unit with armor that reduces your damage to 40% or lower, convert the reduced damage to blunt instead of cutting.\n";
@@ -68,6 +72,10 @@ void Weapon::setAbility()
 		}
 		}
 	}
+}
+void Weapon::setAbilityWand()
+{
+	int selectAbility = 0;
 	if (m_name == "Wand")
 	{
 		std::cout << "Please choose from the following abilities: \n";
@@ -99,3 +107,4 @@ void Weapon::setAbility()
 		}
 	}
 }
+

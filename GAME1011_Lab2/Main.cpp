@@ -11,14 +11,47 @@ void initializeCharacterSaves()
 	}
 	
 }
-
+void weaponSelect(Player* p)
+{
+	;
+	int choice;
+	std::cout << "Here are the weapons that we have available for you.\n1. A pair of Daggers\n2. A Broadsword\n3. A Magical Wand.\n";
+	std::cout << "Please select one of the weapons above.\n";
+	std::cin >> choice;
+	switch(choice)
+	{
+	case 1:
+		{
+		p->setWeapon(new Weapon("Daggers",
+			"Twin blades, though small in appearance are devastating when used correctly. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.", 20));
+		p->getWeapon()->setAbilityDaggers();
+		break;
+		}
+	case 2:
+		{
+		p->setWeapon(new Weapon("Sword",
+			"The standard 'New Adventurer' weapon. Well rounded, usable by anyone, become the master of this and you'll scarcely find yourself unable to fight,should your main weapon be gone.",
+			35));
+		p->getWeapon()->setAbilitySword();
+		break;
+		}
+	case 3:
+		{
+		p->setWeapon(new Weapon("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feather and Holly Wood. This wand can do great things, for good or for evil...", 30));
+		p->getWeapon()->setAbilityWand();
+		break;
+		}
+	default:
+		break;
+	}
+}
 void createHuman()
 {
 	
 	std::string tempName;
 	std::cout << "Please enter a name for your human character.\n";
 	std::cin >> tempName;
-	for(unsigned int i = 0; i < sizeof(savedCharacters[INT_MAX]); i++)
+	for(unsigned int i = 0; i < sizeof(savedCharacters[10]); i++)
 	{
 		if(savedCharacters[i]->getHealth() ==0)
 		{
@@ -27,16 +60,12 @@ void createHuman()
 		}
 		else
 		{
-			for (unsigned int j = i; j < (i +10); j++)
-			{
-				savedCharacters[j] = new Human();
-			}
-			for (unsigned int k = 0; k < sizeof(savedCharacters[INT_MAX]); k++)
-			{
-				savedCharacters[k] = new Human(tempName);
-			}
+			std::cout << "Unable to create new character, return to menu.\n";
+			break;
 			
 		}
+		std::cout << "Please choose a Weapon.\n";
+		weaponSelect(savedCharacters[i]);
 	}
 	
 }

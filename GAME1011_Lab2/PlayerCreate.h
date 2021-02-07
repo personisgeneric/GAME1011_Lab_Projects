@@ -23,6 +23,7 @@ public:
 	//Getters
 	std::string getName() { return m_name; }
 	int getHealth() { return m_health; }
+	Weapon* getWeapon() { return m_weapon; }
 };
 
 class Human : public Player
