@@ -2,7 +2,7 @@
 #include <string>
 #include "PlayerCreate.h"
 #include "Weapon.h"
-Player* savedCharacters[];
+Player *savedCharacters[];
 void initializeCharacterSaves()
 {
 	for(unsigned int i =0; i <10; i++)
@@ -13,7 +13,6 @@ void initializeCharacterSaves()
 }
 void weaponSelect(Player* p)
 {
-	;
 	int choice;
 	std::cout << "Here are the weapons that we have available for you.\n1. A pair of Daggers\n2. A Broadsword\n3. A Magical Wand.\n";
 	std::cout << "Please select one of the weapons above.\n";
@@ -75,6 +74,22 @@ void createOrc()
 	std::string tempName;
 	std::cout << "Please enter a name for your human character.\n";
 	std::cin >> tempName;
+	for (unsigned int i = 0; i < sizeof(savedCharacters[10]); i++)
+	{
+		if (savedCharacters[i]->getHealth() == 0)
+		{
+			savedCharacters[i] = new Orc(tempName);
+
+		}
+		else
+		{
+			std::cout << "Unable to create new character, return to menu.\n";
+			break;
+
+		}
+		std::cout << "Please choose a Weapon.\n";
+		weaponSelect(savedCharacters[i]);
+	}
 }
 
 void createElf()
@@ -82,6 +97,22 @@ void createElf()
 	std::string tempName;
 	std::cout << "Please enter a name for your human character.\n";
 	std::cin >> tempName;
+	for (unsigned int i = 0; i < sizeof(savedCharacters[10]); i++)
+	{
+		if (savedCharacters[i]->getHealth() == 0)
+		{
+			savedCharacters[i] = new Elf(tempName);
+
+		}
+		else
+		{
+			std::cout << "Unable to create new character, return to menu.\n";
+			break;
+
+		}
+		std::cout << "Please choose a Weapon.\n";
+		weaponSelect(savedCharacters[i]);
+	}
 }
 
 void PlayerCreate()
@@ -89,7 +120,6 @@ void PlayerCreate()
 	int player = 0;
 	initializeCharacterSaves();
 	do {
-		//if()
 		std::cout << "Please choose what type of character you want to make.\n";
 		std::cin >> player;
 		switch (player)
@@ -113,13 +143,40 @@ void PlayerCreate()
 		{
 			break;
 		}
+		default:
+			break;
 		}
 	} while (player != 4);
 
 }
+void viewCharacters()
+{
+	for(unsigned int i =0; i <10; i++)
+	{
+		savedCharacters[i]->DisplayInfo();
+	}
+}
 
-
-
+void deleteCharacter()
+{
+	int select;
+	int i = 0;
+	std::cout << "These are the characters currently saved. Please select the corresponding number to delete the character from the list.\n";
+	for(i <10; i++;)
+	{
+		savedCharacters[i]->getName();
+	}
+	std::cin >> select;
+	if(select > sizeof(savedCharacters[i]))
+	{
+		std::cout << "Invalid selection. Returning to main menu.\n";
+	}
+	else
+	{
+		savedCharacters[select] = new Human();
+	}
+	
+}
 
 
 int main()
@@ -139,7 +196,7 @@ int main()
 		}
 		case 2:
 		{
-			viewCharacter();
+			viewCharacters();
 			break;
 		}
 		case 3:
@@ -151,6 +208,8 @@ int main()
 		{
 			break;
 		}
+		default:
+			break;
 		}
 
 	} while (selection != 4);

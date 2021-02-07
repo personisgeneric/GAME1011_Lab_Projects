@@ -5,7 +5,7 @@
 
 
 
-void Weapon::setAbilityDagger()
+void Weapon::setAbilityDaggers()
 {
 	int selectAbility = 0;
 	if (m_name == "Dagger")

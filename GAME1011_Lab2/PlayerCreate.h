@@ -59,7 +59,7 @@ public:
 	virtual void DisplayInfo() override;
 	Orc()
 	{
-		m_name = nullptr;
+		m_name = "";
 		m_health = 0;
 		
 	}
@@ -83,7 +83,7 @@ public:
 	virtual void DisplayInfo() override;
 	Elf()
 	{
-		m_name = nullptr;
+		m_name = "";
 		m_health = 0;
 		
 	}
