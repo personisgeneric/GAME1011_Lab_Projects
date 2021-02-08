@@ -5,17 +5,3 @@
 
 
 
-//void Weapon::setAbilityDaggers()
-//{
-//	
-//}
-//void Weapon::setAbilitySword()
-//{
-//	
-//
-//}
-//void Weapon::setAbilityWand()
-//{
-//	
-//}
-

@@ -2,7 +2,19 @@
 #include <string>
 #include "PlayerCreate.h"
 #include "Weapon.h"
+//Array for holding the characters
 Player** g_characterList;
+//Global Weapon identifiers
+Weapon g_daggers("Daggers",
+	"Twin blades, though small in appearance are devastating when used correctly. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.",
+	20, "Silent Take-Down");
+
+Weapon g_sword("Sword",
+	"The standard 'New Adventurer' weapon. Well rounded, usable by anyone, become the master of this and you'll scarcely find yourself unable to fight,should your main weapon be gone.",
+	35, "Riposte");
+Weapon g_wand("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feather and Holly Wood. This wand can do great things, for good or for evil...",
+	30, "Phenomenal Magical Power");
+
 void initializeCharacterSaves(int x)
 {
 	g_characterList = new Player *[x];
@@ -18,136 +30,27 @@ void weaponSelect(Player* p)
 	std::cout << "Here are the weapons that we have available for you.\n1. A pair of Daggers\n2. A Broadsword\n3. A Magical Wand.\n";
 	std::cout << "Please select one of the weapons above.\n";
 	std::cin >> choice;
+	
 	switch(choice)
 	{
 	case 1:
 		{
-		int selectAbility = 0;
-
-		std::cout << "Please choose from the following abilities: \n";
-		std::cout << "1. Silent Take-down: If unseen for 3 turns, you may assassinate a target within 5 tiles.\n";
-		std::cout << "2. Toxic Relationship: At the beginning of combat, and every 4 turns after, your daggers deal normal damage plus 2 damage per turn for 3 turns\n";
-		std::cout << "3. This is a knoife!: Your daggers have increased size, allowing you to block attacks from medium sized weapons.\n";
-		std::cin >> selectAbility;
-		switch (selectAbility)
-		{
-		case 1:
-		{
-			p->setWeapon(new Weapon("Daggers",
-				"Twin blades, though small in appearance are devastating when used correctly. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.",
-				20, "Silent Take-Down"));
-			//setAbility("Silent Take-Down.");
-			break;
-		}
-		case 2:
-		{
-			p->setWeapon(new Weapon("Daggers",
-				"Twin blades, though small in appearance are devastating when used correctly. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.",
-				20, "Toxic Relationship."));
-			//setAbility();
-			break;
-		}
-		case 3:
-		{
-			p->setWeapon(new Weapon("Daggers",
-				"Twin blades, though small in appearance are devastating when used correctly. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.",
-				20, "This is a Knoife!"));
-			//setAbility();
-			break;
-		}
-		default:
-		{
-			break;
-		}
-		}
+		p->setWeapon(g_daggers);
 		break;
 		}
 	case 2:
 		{
-		int selectAbility = 0;
-		std::cout << "Please choose from the following abilities: \n";
-		std::cout << "1. Brute Force: If you attack a unit with armor that reduces your damage to 40% or lower, convert the reduced damage to blunt instead of cutting.\n";
-		std::cout << "2. Hero's Spin: After taking a turn to prepare, you can use Hero's Spin, an AOE attack that hits all squares surrounding the player.\n";
-		std::cout << "3. Riposte: Your block is replaced with a parry. Harder to land, but doing so will completely avoid the enemies attack and strike them for 70% of your normal damage.\n";
-		std::cin >> selectAbility;
-		switch (selectAbility)
-		{
-		case 1:
-		{
-			p->setWeapon(new Weapon("Sword",
-				"The standard 'New Adventurer' weapon. Well rounded, usable by anyone, become the master of this and you'll scarcely find yourself unable to fight,should your main weapon be gone.",
-				35, "Brute Force"));
-			//setAbility();
-			break;
-		}
-		case 2:
-		{
-			p->setWeapon(new Weapon("Sword",
-				"The standard 'New Adventurer' weapon. Well rounded, usable by anyone, become the master of this and you'll scarcely find yourself unable to fight,should your main weapon be gone.",
-				35, "Hero's Spin"));
-			//setAbility();
-			break;
-		}
-		case 3:
-		{
-			p->setWeapon(new Weapon("Sword",
-				"The standard 'New Adventurer' weapon. Well rounded, usable by anyone, become the master of this and you'll scarcely find yourself unable to fight,should your main weapon be gone.",
-				35, "Riposte"));
-			//setAbility();
-			break;
-		}
-		default:
-		{
-			break;
-		}
-		}
-		
-		//p->getWeapon()->setAbilitySword();
+		p->setWeapon(g_sword);
 		break;
 		}
 	case 3:
 		{
-		int selectAbility = 0;
-
-		std::cout << "Please choose from the following abilities: \n";
-		std::cout << "1. Phenomenal Magical Power: Being the one to deal the finishing blow to an enemy increases the magical power of your wand by 2% permanently.\n";
-		std::cout << "2. Untapped Potential: Spells that you cast have a 15% chance to cast the spell +1 level higher than it normally is.\n";
-		std::cout << "3. Ley lines: When first entering combat, areas of the map will be aglow. Going to these will refresh your cooldowns by 30%-50% depending on Level.\n";
-		std::cin >> selectAbility;
-		switch (selectAbility)
-		{
-		case 1:
-		{
-			p->setWeapon(new Weapon("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feather and Holly Wood. This wand can do great things, for good or for evil...",
-				30, "Phenomenal Magical Power"));
-			break;
-		}
-		case 2:
-		{
-			p->setWeapon(new Weapon("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feather and Holly Wood. This wand can do great things, for good or for evil...",
-				30, "Untapped Potential"));
-			//setAbility);
-			break;
-		}
-		case 3:
-		{
-			p->setWeapon(new Weapon("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feather and Holly Wood. This wand can do great things, for good or for evil...",
-				30, "Ley lines"));
-			//setAbility();
-			break;
-		}
-		default:
-		{
-			break;
-		}
+		p->setWeapon(g_wand);
+		break;
 		}
 		
-		//p->getWeapon()->setAbilityWand();
-		break;
-		}
-	default:
-		break;
 	}
+	
 }
 void createHuman()
 {
@@ -250,33 +153,22 @@ void viewCharacters()
 		if(g_characterList[i] != nullptr)
 		{
 			g_characterList[i]->DisplayInfo();
-		}
-		else
-		{
-			break;
-		}
-		
+			
+			
+		}		
 	}
 }
 
 void deleteCharacter()
 {
-	int select;
-	int i = 0;
+	//int select;
+	
 	std::cout << "These are the characters currently saved. Please select the corresponding number to delete the character from the list.\n";
-	for(i <10; i++;)
+	for(int i = 0; i < 10; i++)
 	{
 		g_characterList[i]->getName();
 	}
-	std::cin >> select;
-	if(select > sizeof(g_characterList[i]))
-	{
-		std::cout << "Invalid selection. Returning to main menu.\n";
-	}
-	else
-	{
-		g_characterList[select] = new Human();
-	}
+	
 	
 }
 
