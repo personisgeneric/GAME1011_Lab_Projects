@@ -4,9 +4,9 @@
 
 void Human::DisplayInfo()
 {
-	std::cout << getName() << ", Human, " << getHealth() << " HP.\n" << *getWeapon() << "\nSpecial trait: Human ingenuity: You are able to craft useful items from scrap and leftover materials more easily.\n";
+	std::cout << getName() << ", Human, " << getHealth() << " HP.\n" << 
+		*getWeapon() << "\nSpecial trait: Human ingenuity: You are able to craft useful items from scrap and leftover materials more easily.\n";
 }
-
 
 void Orc::DisplayInfo()
 {

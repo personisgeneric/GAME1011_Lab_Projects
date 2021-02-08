@@ -4,7 +4,7 @@
 #include "Weapon.h"
 //Array for holding the characters and int to define the size of the array
 Player** g_characterList;
-int g_sizeOfArray;
+int g_sizeOfArray, g_arrayPosition;
 //Global Weapon identifiers
 Weapon g_daggers("Daggers",
 	"Though small in appearance, they can be devastating. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.",
@@ -14,28 +14,33 @@ Weapon g_sword("Sword",
 	"The standard 'New Adventurer' weapon. Well rounded, usable by anyone.",
 	35, "Riposte: Instead of blocking, you can parry Enemy attacks for 40% of your maximum damage.");
 
-Weapon g_wand("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feather and Holly Wood. This wand can do great things, for good or for evil...",
+Weapon g_wand("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feather and Holly Wood. This wand can do great things, for good or  evil...",
 	30, "Phenomenal Magical Power: Killing a unit permanently increases your wands power by 2%.");
 
-void initializeCharacterSaves(int x)
-{
-	g_characterList = new Player *[x];
-	for (unsigned int i =0; i < sizeof(g_characterList); i++)
-	{
-		g_characterList[i] = nullptr;
-	}
-	
-}
+
+
+//void expandArray()
+//{
+//	Player** placeHolderArray = new Player *[g_sizeOfArray + 10];
+//	for(int i=0; i< g_sizeOfArray; i++)
+//	{
+//		placeHolderArray[i] = g_characterList[i];
+//	}
+//	delete g_characterList;
+//	g_characterList = placeHolderArray;
+//	placeHolderArray = nullptr;
+//	
+//}
 
 void PlayerCreate()
 {
 	int player = 0;
 	
-	initializeCharacterSaves(10);
+	
 	Player* placeHolder = nullptr;
 	std::string tempName;
 	
-	std::cout << "Welcome to the character creator.First, please choose a name for your character.\n";
+	std::cout << "Welcome to the character creator. First, please choose a name for your character.\n";
 	std::getline(std::cin >> std::ws, tempName);
 	std::cout << "Please choose the race you would like to play as.The options are as follows:\n1. Human\n2. Orc\n3. Elf\n";
 	int select;
@@ -55,6 +60,7 @@ void PlayerCreate()
 	case 3:
 	{
 		placeHolder = new Elf(tempName, 125, new Weapon());
+		break;
 	}
 	default:
 		break;
@@ -85,67 +91,67 @@ void PlayerCreate()
 		break;
 
 	}
-	//Quickly check to see if there is enough space to save a new character. If not, increase the array by 10.
-	if(g_characterList[g_sizeOfArray] != nullptr)
-	{
-		Player** tmpArr = new Player*[g_sizeOfArray + 10];
-		for(int i=0; i< g_sizeOfArray; i++)
-		{
-			tmpArr[i] = g_characterList[i];
-		}
-		delete[] g_characterList;
-		g_characterList = tmpArr;
-		
-	}
-	
-	for(int i =0; i < g_sizeOfArray; i++)
-	{
-		if(g_characterList[i] == nullptr)
-		{
-			g_characterList[i] = placeHolder;
-			break;
-		}
-	}
-	placeHolder = nullptr;
-	
 
+	
+	g_characterList[g_arrayPosition] = placeHolder;
+	++g_arrayPosition;
+	placeHolder = nullptr;
+	std::cout << "current # of characters: " << g_arrayPosition << "\n";
+	
+	//if (g_arrayPosition >= g_sizeOfArray);
+	//{
+	//	expandArray();
+	//}
+	
 
 }
 void viewCharacters()
 {
-	for(unsigned int i =0; i < g_sizeOfArray; i++)
-	{
-		if(g_characterList[i] != nullptr)
+	
+	
+		for (int i = 0; i < g_arrayPosition; i++)
 		{
-			
 			g_characterList[i]->DisplayInfo();
-			
+			std::cout << "\n-----------------------------------------------\n";
+
 		}
-		else
-		{
-			break;
-		}
-		
-	}
+	
+	
+	
 }
 
 void deleteCharacter()
 {
-	//int select;
+	int select;
 	
 	std::cout << "These are the characters currently saved. Please select the corresponding number to delete the character from the list.\n";
-	for(int i = 0; i < 10; i++)
+	for(int i = 0; i < g_arrayPosition; ++i)
 	{
-		g_characterList[i]->getName();
+		std::cout << i + 1 << "." << g_characterList[i]->getName() << "\n";
 	}
-	
-	
+	std::cout << "Please type the corresponding number to delete the character, or 0 to exit.\n";
+	std::cin >> select;
+	if(select <= g_arrayPosition)
+	{
+		delete g_characterList[select-1];
+		g_characterList[select] = nullptr;
+		for (int i = select; i < g_sizeOfArray; i++)
+			g_characterList[i - 1] = g_characterList[i];
+		--g_arrayPosition;
+		std::cout << "Character successfully deleted.\n";
+	}
+	if (select > g_arrayPosition)
+	{
+		std::cout << "Exiting character deletion.\n";
+	}
 }
 
 
 int main()
 {
 	g_sizeOfArray = 10;
+	g_arrayPosition = 0;
+	g_characterList = new Player * [g_sizeOfArray];
 	int selection = 0;
 	std::cout << "Welcome to the Custom Player Creator!\n";
 	do
