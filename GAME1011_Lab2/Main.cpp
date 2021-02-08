@@ -19,18 +19,19 @@ Weapon g_wand("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feath
 
 
 
-//void expandArray()
-//{
-//	Player** placeHolderArray = new Player *[g_sizeOfArray + 10];
-//	for(int i=0; i< g_sizeOfArray; i++)
-//	{
-//		placeHolderArray[i] = g_characterList[i];
-//	}
-//	delete g_characterList;
-//	g_characterList = placeHolderArray;
-//	placeHolderArray = nullptr;
-//	
-//}
+void expandArray()
+{
+	g_sizeOfArray += 10;
+	Player** placeHolderArray = new Player *[g_sizeOfArray];
+	for(int i=0; i< g_sizeOfArray; i++)
+	{
+		placeHolderArray[i] = g_characterList[i];
+	}
+	delete g_characterList;
+	g_characterList = placeHolderArray;
+	placeHolderArray = nullptr;
+	
+}
 
 void PlayerCreate()
 {
@@ -98,10 +99,10 @@ void PlayerCreate()
 	placeHolder = nullptr;
 	std::cout << "current # of characters: " << g_arrayPosition << "\n";
 	
-	//if (g_arrayPosition >= g_sizeOfArray);
-	//{
-	//	expandArray();
-	//}
+	if (g_arrayPosition >= g_sizeOfArray);
+	{
+		expandArray();
+	}
 	
 
 }
@@ -131,16 +132,16 @@ void deleteCharacter()
 	}
 	std::cout << "Please type the corresponding number to delete the character, or 0 to exit.\n";
 	std::cin >> select;
-	if(select <= g_arrayPosition)
+	if(select <= g_arrayPosition && select != 0)
 	{
-		delete g_characterList[select-1];
+		delete g_characterList[--select];
 		g_characterList[select] = nullptr;
 		for (int i = select; i < g_sizeOfArray; i++)
 			g_characterList[i - 1] = g_characterList[i];
 		--g_arrayPosition;
 		std::cout << "Character successfully deleted.\n";
 	}
-	if (select > g_arrayPosition)
+	if (select == 0)
 	{
 		std::cout << "Exiting character deletion.\n";
 	}
