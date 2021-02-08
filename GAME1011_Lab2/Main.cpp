@@ -2,8 +2,9 @@
 #include <string>
 #include "PlayerCreate.h"
 #include "Weapon.h"
-//Array for holding the characters
+//Array for holding the characters and int to define the size of the array
 Player** g_characterList;
+int g_sizeOfArray;
 //Global Weapon identifiers
 Weapon g_daggers("Daggers",
 	"Twin blades, though small in appearance are devastating when used correctly. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.",
@@ -24,138 +25,106 @@ void initializeCharacterSaves(int x)
 	}
 	
 }
-void weaponSelect(Player* p)
-{
-	int choice;
-	std::cout << "Here are the weapons that we have available for you.\n1. A pair of Daggers\n2. A Broadsword\n3. A Magical Wand.\n";
-	std::cout << "Please select one of the weapons above.\n";
-	std::cin >> choice;
-	
-	switch(choice)
-	{
-	case 1:
-		{
-		p->setWeapon(g_daggers);
-		break;
-		}
-	case 2:
-		{
-		p->setWeapon(g_sword);
-		break;
-		}
-	case 3:
-		{
-		p->setWeapon(g_wand);
-		break;
-		}
-		
-	}
-	
-}
-void createHuman()
-{
-	
-	
-	for(unsigned int i = 0; i < sizeof(g_characterList); i++)
-	{
-		if(g_characterList[i] == nullptr)
-		{
-			std::string tempName;
-			std::cout << "Please enter a name for your Human character.\n";
-			std::getline(std::cin >> std::ws, tempName);
-			g_characterList[i] = new Human(tempName,150);
-			std::cout << "Please choose a Weapon.\n";
-			weaponSelect(g_characterList[i]);
-			break;
-			
-		}		
-	}
-	
-}
-
-void createOrc()
-{
-	
-	for (unsigned int i = 0; i < sizeof(g_characterList); i++)
-	{
-		if (g_characterList[i] == nullptr)
-		{
-			std::string tempName;
-			std::cout << "Please enter a name for your Orc character.\n";
-			std::getline(std::cin >> std::ws, tempName);
-			g_characterList[i] = new Orc(tempName, 200);
-			std::cout << "Please choose a Weapon.\n";
-			weaponSelect(g_characterList[i]);
-			break;
-		}
-		
-	}
-}
-
-void createElf()
-{
-	
-	for (unsigned int i = 0; i < sizeof(g_characterList); i++)
-	{
-		if (g_characterList[i] == nullptr)
-		{
-			std::string tempName;
-			std::cout << "Please enter a name for your Elf character.\n";
-			std::getline(std::cin >> std::ws, tempName);
-			g_characterList[i] = new Elf(tempName, 125);
-			std::cout << "Please choose a Weapon.\n";
-			weaponSelect(g_characterList[i]);
-			break;
-		}
-	}
-}
 
 void PlayerCreate()
 {
 	int player = 0;
-	std::cout << "Welcome to the character creator.\n";
+	
 	initializeCharacterSaves(10);
-	do {
-		std::cout << "Please choose what type of character you want to make.\n";
-		std::cout << "1. Human\n2. Orc\n3. Elf\n4. Exit to menu\n";
-		std::cin >> player;
-		switch (player)
+	Player* placeHolder = nullptr;
+	std::string tempName;
+	
+	std::cout << "Welcome to the character creator.First, please choose a name for your character.\n";
+	std::getline(std::cin >> std::ws, tempName);
+	std::cout << "Please choose the race you would like to play as.The options are as follows:\n1. Human\n2. Orc\n3. Elf";
+	int select;
+	std::cin >> select;	
+	switch (select)
+	{
+	case 1:
+	{
+		placeHolder = new Human(tempName, 150, new Weapon());
+		break;
+	}
+	case 2:
+	{
+		placeHolder = new Orc(tempName, 200, new Weapon());
+		break;
+	}
+	case 3:
+	{
+		placeHolder = new Elf(tempName, 125, new Weapon());
+	}
+	default:
+		break;
+	}
+	int choice;
+	std::cout << "Here are the weapons that we have available for you.\n1. A pair of Daggers\n2. A Broadsword\n3. A Magical Wand.\n";
+	std::cout << "Please select one of the weapons above.\n";
+	std::cin >> choice;
+	switch (choice)
+	{
+	case 1:
+	{
+		placeHolder->setWeapon(new Weapon(g_daggers));
+		
+		break;
+	}
+	case 2:
+	{
+		placeHolder->setWeapon(new Weapon(g_sword));
+		break;
+	}
+	case 3:
+	{
+		placeHolder->setWeapon(new Weapon(g_wand));
+		break;
+	}
+	default:
+		break;
+
+	}
+	//Quickly check to see if there is enough space to save a new character. If not, increase the array by 10.
+	if(g_characterList[g_sizeOfArray] != nullptr)
+	{
+		Player** tmpArr = new Player*[g_sizeOfArray + 10];
+		for(int i=0; i< g_sizeOfArray; i++)
 		{
-		case 1:
+			tmpArr[i] = g_characterList[i];
+		}
+		delete[] g_characterList;
+		g_characterList = tmpArr;
+		
+	}
+	
+	for(int i =0; i < g_sizeOfArray; i++)
+	{
+		if(g_characterList[i] == nullptr)
 		{
-			createHuman();
+			g_characterList[i] = placeHolder;
 			break;
 		}
-		case 2:
-		{
-			createOrc();
-			break;
-		}
-		case 3:
-		{
-			createElf();
-			break;
-		}
-		case 4:
-		{
-			break;
-		}
-		default:
-			break;
-		}
-	} while (player != 4);
+	}
+	placeHolder = nullptr;
+	
+
 
 }
 void viewCharacters()
 {
-	for(unsigned int i =0; i < sizeof(g_characterList); i++)
+	for(unsigned int i =0; i < g_sizeOfArray; i++)
 	{
 		if(g_characterList[i] != nullptr)
 		{
+			std::cout << g_characterList[i]->getWeapon();
 			g_characterList[i]->DisplayInfo();
 			
-			
-		}		
+		}
+		else
+		{
+			break;
+		}
+		
 	}
 }
 
@@ -175,6 +144,7 @@ void deleteCharacter()
 
 int main()
 {
+	g_sizeOfArray = 10;
 	int selection = 0;
 	std::cout << "Welcome to the Custom Player Creator!\n";
 	do

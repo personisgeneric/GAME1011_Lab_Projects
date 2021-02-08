@@ -10,7 +10,7 @@ class Player
 public:
 	std::string m_name;
 	int m_health = 0;
-	Weapon m_weapon;
+	Weapon* m_weapon = nullptr;
 
 	// Pure Virtual function
 	virtual void DisplayInfo() = 0;
@@ -18,12 +18,12 @@ public:
 	//Setters
 	void setName(std::string n) { m_name = n; }
 	void setHealth(int h) { m_health = h; }
-	void setWeapon(Weapon w) { w = m_weapon; }
+	void setWeapon(Weapon* w) { w = m_weapon; }
 
 	//Getters
 	std::string getName() { return m_name; }
 	int getHealth() { return m_health; }
-	Weapon getWeapon() { return m_weapon; }
+	Weapon* getWeapon() { return m_weapon; }
 
 	
 };
@@ -37,12 +37,12 @@ public:
 	{
 		m_name = nullptr;
 		m_health = 0;
-		
 	}
-	Human(std::string n, int h)
+	Human(std::string n, int h, Weapon* w)
 	{
 		m_name = n;
 		m_health = h;
+		m_weapon = w;
 	}
 	~Human();
 	virtual void DisplayInfo() override;
@@ -60,12 +60,13 @@ public:
 	{
 		m_name = "";
 		m_health = 0;
-		
+
 	}
-	Orc(std::string n, int h)
+	Orc(std::string n, int h, Weapon* w)
 	{
 		m_name = n;
 		m_health = h;
+		m_weapon = w;
 	}
 	~Orc();
 	
@@ -81,12 +82,14 @@ public:
 	{
 		m_name = "";
 		m_health = 0;
+
 		
 	}
-	Elf(std::string n, int h)
+	Elf(std::string n, int h, Weapon* w)
 	{
 		m_name = n;
 		m_health = h;
+		m_weapon = w;
 	}
 	~Elf();
 	
