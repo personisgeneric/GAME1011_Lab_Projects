@@ -7,14 +7,15 @@ Player** g_characterList;
 int g_sizeOfArray;
 //Global Weapon identifiers
 Weapon g_daggers("Daggers",
-	"Twin blades, though small in appearance are devastating when used correctly. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.",
-	20, "Silent Take-Down");
+	"Though small in appearance, they can be devastating. Always carry these where they're easy to reach and you'll never miss the opportunity to strike.",
+	20, "Silent Take-Down: When unseen for 3 turns, you gain the ability to instantly kill a target with up to 35% more health than you.");
 
 Weapon g_sword("Sword",
-	"The standard 'New Adventurer' weapon. Well rounded, usable by anyone, become the master of this and you'll scarcely find yourself unable to fight,should your main weapon be gone.",
-	35, "Riposte");
+	"The standard 'New Adventurer' weapon. Well rounded, usable by anyone.",
+	35, "Riposte: Instead of blocking, you can parry Enemy attacks for 40% of your maximum damage.");
+
 Weapon g_wand("Wand", "A Magic Wand. Nice and Supple, made from a Phoenix' feather and Holly Wood. This wand can do great things, for good or for evil...",
-	30, "Phenomenal Magical Power");
+	30, "Phenomenal Magical Power: Killing a unit permanently increases your wands power by 2%.");
 
 void initializeCharacterSaves(int x)
 {
@@ -36,7 +37,7 @@ void PlayerCreate()
 	
 	std::cout << "Welcome to the character creator.First, please choose a name for your character.\n";
 	std::getline(std::cin >> std::ws, tempName);
-	std::cout << "Please choose the race you would like to play as.The options are as follows:\n1. Human\n2. Orc\n3. Elf";
+	std::cout << "Please choose the race you would like to play as.The options are as follows:\n1. Human\n2. Orc\n3. Elf\n";
 	int select;
 	std::cin >> select;	
 	switch (select)
@@ -116,7 +117,7 @@ void viewCharacters()
 	{
 		if(g_characterList[i] != nullptr)
 		{
-			std::cout << g_characterList[i]->getWeapon();
+			
 			g_characterList[i]->DisplayInfo();
 			
 		}

@@ -10,7 +10,7 @@ class Player
 public:
 	std::string m_name;
 	int m_health = 0;
-	Weapon* m_weapon = nullptr;
+	Weapon* m_weapon;
 
 	// Pure Virtual function
 	virtual void DisplayInfo() = 0;
@@ -18,12 +18,12 @@ public:
 	//Setters
 	void setName(std::string n) { m_name = n; }
 	void setHealth(int h) { m_health = h; }
-	void setWeapon(Weapon* w) { w = m_weapon; }
+	void setWeapon(Weapon* w) { this->m_weapon = w; }
 
 	//Getters
-	std::string getName() { return m_name; }
-	int getHealth() { return m_health; }
-	Weapon* getWeapon() { return m_weapon; }
+	std::string getName() { return this->m_name; }
+	int getHealth() { return this->m_health; }
+	Weapon* getWeapon() { return this->m_weapon; }
 
 	
 };
@@ -42,7 +42,7 @@ public:
 	{
 		m_name = n;
 		m_health = h;
-		m_weapon = w;
+		setWeapon(w);
 	}
 	~Human();
 	virtual void DisplayInfo() override;
@@ -66,7 +66,7 @@ public:
 	{
 		m_name = n;
 		m_health = h;
-		m_weapon = w;
+		setWeapon(w);
 	}
 	~Orc();
 	
@@ -89,7 +89,7 @@ public:
 	{
 		m_name = n;
 		m_health = h;
-		m_weapon = w;
+		setWeapon(w);
 	}
 	~Elf();
 	
